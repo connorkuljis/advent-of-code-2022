@@ -30,13 +30,9 @@ for (let i = 0; i < lines.length; i++)
     let currentLine = lines[i];
     let splitIndex = currentLine.length / 2;
 
-    const splitAt = (splitIndex: number, currentLine: string) => [currentLine.slice(0, splitIndex), currentLine.slice(splitIndex)]
-
-    let spliced: string[] = splitAt(splitIndex, currentLine);
-
     // convert string to an array using spread operator
-    let a = [...spliced[0]]
-    let b = [...spliced[1]]
+    let a = [...currentLine.slice(0, splitIndex)];
+    let b = [...currentLine.slice(splitIndex)];
 
     // for each element in the array, get the ascii code and convert it to its priority
     let c1 = a.map(x => convertAsciiToPriority(x.charCodeAt(0)));
