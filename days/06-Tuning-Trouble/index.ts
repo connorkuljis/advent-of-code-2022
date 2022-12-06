@@ -4,35 +4,37 @@ function arrayToSet(buffer: string[]) {
   return new Set(Array.from(buffer));
 }
 
-let signal = Array.from(readFileSync("input.txt", "utf-8"));
-
-function gold(signal: string[]) {
-  let controlCodeSize = 4;
+//
+function communicationSystem(signal: string[], markerSize: number) {
+  let m = markerSize;
   let buffer = [];
 
-  // check the first 4 characters
-  let pointer = 0;
-  for (pointer; pointer < controlCodeSize; pointer++) {
-    buffer.push(signal[pointer]);
+  // read the first m 'characters into an array, to act as a temporary buffer
+  let p = 0;
+  for (p; p < m; p++) {
+    buffer.push(signal[p]);
   }
 
   // convert the buffer to a set to remove duplicates
-  // if the size is equal to the control code size, return the position current position
-  if (arrayToSet(buffer).size == controlCodeSize) {
-    return pointer;
+  // if the set size is equal to m, we have found a distinct set of 'characters'!
+  if (arrayToSet(buffer).size == m) {
+    return p;
   }
 
-  // read the rest of the signal start for the
-  for (pointer; pointer < signal.length; pointer++) {
+  // continue reading the rest of the signal.
+  for (p; p < signal.length; p++) {
     // add it to the array, then remove the first element
-    buffer.push(signal[pointer]);
+    buffer.push(signal[p]);
     buffer.shift();
 
     // perform our check!
-    if (arrayToSet(buffer).size == controlCodeSize) {
-      return pointer;
+    if (arrayToSet(buffer).size == m) {
+      return p;
     }
   }
 }
 
-console.log(gold(signal)! + 1);
+// read the input into a string array
+let signal = Array.from(readFileSync("input.txt", "utf-8"));
+console.log(communicationSystem(signal, 4)! + 1);
+console.log(communicationSystem(signal, 14)! + 1);
