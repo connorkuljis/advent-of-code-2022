@@ -16,7 +16,7 @@ function communicationSystem(signal: string[], markerSize: number) {
   }
 
   // convert the buffer to a set to remove duplicates
-  // if the set size is equal to m, we have found a distinct set of 'characters'!
+  // if the set size is equal to m, we have found a distinct set of 'characters'
   if (arrayToSet(buffer).size == m) {
     return p;
   }
@@ -27,7 +27,7 @@ function communicationSystem(signal: string[], markerSize: number) {
     buffer.push(signal[p]);
     buffer.shift();
 
-    // perform our check!
+    // check our buffer!
     if (arrayToSet(buffer).size == m) {
       return p;
     }
