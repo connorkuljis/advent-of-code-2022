@@ -1,7 +1,7 @@
 # scripting implementation
 File.read!("items.txt")
-|> String.split("\n\n", trim: true) # groups elves
-|> Enum.map(fn e -> 
+|> String.split("\n\n")             # split contents of file into groups 
+|> Enum.map(fn e ->                 # iterate over each group, and apply transformation to lines in group
   e 
   |> String.split("\n")
   |> Enum.map(&String.to_integer/1)
