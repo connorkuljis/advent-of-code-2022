@@ -1,0 +1,54 @@
+# Day 2 - Advent of Code 2022
+
+## Section
+
+```elixir
+defmodule PaperScissorsRock do
+  @draw 3
+  @win 6
+  @lose 0
+
+  def play(computer, player) when computer == player do
+    @draw + player
+  end
+
+  def play(computer, player) when computer == 3 and player == 1 do
+    @win + player
+  end
+
+  def play(computer, player) when computer == 1 and player == 2 do
+    @win + player
+  end
+
+  def play(computer, player) when computer == 2 and player == 3 do
+    @win + player
+  end
+
+  def play(_computer, player) do
+    @lose + player
+  end
+end
+```
+
+```elixir
+# program.exs -  Day 2, Advent of Code 2022
+map = %{
+  "A" => 1,
+  "B" => 2,
+  "C" => 3,
+  "X" => 1,
+  "Y" => 2,
+  "Z" => 3
+}
+
+lines = File.read!("#{__DIR__}/input.txt") |> String.split("\n")
+
+Enum.reduce(lines, 0, fn e, acc ->
+  # note: not sure why the need for such pattern matching
+  [head, tail | _] = String.split(e, " ")
+  c = Map.get(map, head)
+  p = Map.get(map, tail)
+  res = PaperScissorsRock.play(c, p)
+  acc + res
+end)
+```
