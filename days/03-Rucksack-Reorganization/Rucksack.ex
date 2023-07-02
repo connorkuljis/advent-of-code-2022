@@ -7,7 +7,7 @@ defmodule Rucksack do
     |> String.split("\n")
   end
 
-  def split_into_compartments(data) do
+  def split_and_find_match(data, priorities_list) do
     Enum.map(data, fn s ->
       len = String.length(s)
       mid = div(len, 2)
@@ -20,8 +20,6 @@ defmodule Rucksack do
         |> MapSet.to_list()
         |> hd()
 
-      priorities_list = Enum.to_list(@range_lowercase) ++ Enum.to_list(@range_uppercase)
-
       # add one for the zero based index
       Enum.find_index(priorities_list, fn x -> x == common_item end) + 1
     end)
@@ -29,9 +27,10 @@ defmodule Rucksack do
 
   def part_one() do
     file_name = "input.txt"
+    priorities_list = Enum.to_list(@range_lowercase) ++ Enum.to_list(@range_uppercase)
 
     parse_input_to_list(file_name)
-    |> split_into_compartments()
+    |> split_and_find_match(priorities_list)
     |> Enum.sum()
   end
 end
